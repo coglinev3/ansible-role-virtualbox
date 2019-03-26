@@ -56,8 +56,8 @@ script:
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
   - >
-    echo "Debug output: virtualbox modules"
-    && sudo docker exec "$(cat ${container_id})" lsmod|grep vbox
+    echo "Debug output: virtualbox"
+    && sudo docker exec "$(cat ${container_id})" virtualbox --help
   - >
     echo Stop and remove docker container
     && sudo docker stop "$(cat ${container_id})"
