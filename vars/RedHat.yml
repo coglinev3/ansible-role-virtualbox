@@ -1,0 +1,16 @@
+---
+# file: roles/virtualbox/vars/RedHat-6.yml
+
+
+# Specific variables for RHEL/CentOS (Enterprise Linux) systems
+vbox_dependencies:
+  - binutils
+  - gcc
+  - make
+  - patch
+  - libgomp
+  - glibc-headers
+  - glibc-devel
+  - dkms
+
+vbox_package: VirtualBox-6.0

@@ -1,0 +1,55 @@
+---
+# file: roles/virtualbox/tasks/setup-RedHat.yml
+
+- name: Get kernel version
+  command: "uname -r"
+  register: uname_result
+  changed_when: false
+  check_mode: no
+
+- name: Set kernel version
+  set_fact:
+    kernel_version: "{{ uname_result.stdout }}"
+  changed_when: false
+
+# Ensure kernel-headers and kernel-devel have the same version like the kernel
+- name: "RedHat: Install kernel-headers, kernel-devel and epel-release"
+  yum:
+    name: "{{ packages }}"
+    update_cache: yes
+    state: present
+  vars:
+    packages:
+    - "kernel-devel-{{ kernel_version }}"
+    - "kernel-headers-{{ kernel_version }}"
+    - epel-release
+
+- name: "RedHat: Install dependencies"
+  yum:
+    name: "{{ vbox_dependencies }}"
+    update_cache: yes
+    enablerepo: epel
+    state: present
+
+- name: "RedHat: Add Oracle's signing key"
+  rpm_key:
+    key: "{{ oracle_public_key }}"
+    state: "{{ oracle_public_key_state }}"
+
+- name: "RedHat: Configure Oracle VirtualBox repository"
+  template:
+    src: yum-repo.j2
+    dest: /etc/yum.repos.d/virtualbox.repo
+    owner: root
+    group: root
+    mode: 0644
+  register: vbox_repo
+
+- name: "RedHat: Install VirtualBox"
+  yum:
+    name: "{{ vbox_package }}"
+    enablerepo: virtualbox
+    update_cache: yes
+    state: "{{ vbox_package_state | default('latest') }}"
+  register: vbox_installed
+  when: vbox_repo.dest is defined
