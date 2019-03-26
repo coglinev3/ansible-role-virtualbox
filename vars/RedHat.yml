@@ -14,6 +14,8 @@ vbox_dependencies:
   - libgomp
   - glibc-headers
   - glibc-devel
+  - kernel-devel
+  - kernel-headers
   - dkms
 
 vbox_package: VirtualBox-6.0
