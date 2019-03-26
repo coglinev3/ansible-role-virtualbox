@@ -3,6 +3,9 @@
 
 
 # Specific variables for RHEL/CentOS (Enterprise Linux) systems
+oracle_public_key: https://www.virtualbox.org/download/oracle_vbox.asc
+oracle_public_key_id: 98AB5139
+
 vbox_dependencies:
   - binutils
   - gcc
