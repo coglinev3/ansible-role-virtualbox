@@ -17,8 +17,8 @@ env:
     version: cosmic
   - distribution: ubuntu
     version: disco
-#  - distribution: debian
-#    version: jessie
+  - distribution: debian
+    version: jessie
 #  - distribution: debian
 #    version: stretch
 
