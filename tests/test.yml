@@ -1,0 +1,7 @@
+---
+# file: tests/test.yml
+
+- hosts: localhost
+  become: true
+  roles:
+    - { role: coglinev3.virtualbox }

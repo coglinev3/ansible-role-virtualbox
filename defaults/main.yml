@@ -1,0 +1,19 @@
+---
+# file: roles/virtualbox/defaults/main.yml
+
+
+# variables for Oracle's signing key
+oracle_public_key: https://www.virtualbox.org/download/oracle_vbox_2016.asc
+oracle_public_key_id: 2980AECF
+oracle_public_key_state: present
+
+# define package dependencies
+vbox_dependencies:
+  - apt-transport-https
+
+# define VirtualBox Version
+vbox_package: virtualbox-6.0
+vbox_package_state: latest
+
+# define VirtualBox users
+vbox_users: []

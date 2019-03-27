@@ -1,0 +1,31 @@
+---
+# file: roles/virtualbox/tasks/setup-Debian.yml
+
+- name: "Debian: Install dependencies"
+  apt:
+    name: "{{ vbox_dependencies }}"
+    state: present
+    update_cache: "yes"
+
+- name: "Debian: Add Oracle's signing key"
+  apt_key:
+    url: "{{ oracle_public_key }}"
+    id: "{{ oracle_public_key_id }}"
+    state: "{{ oracle_public_key_state }}"
+
+- name: "Debian: Configure Oracle VirtualBox repository"
+  template:
+    src: apt-repo.j2
+    dest: /etc/apt/sources.list.d/virtualbox.list
+    owner: root
+    group: root
+    mode: 0644
+  register: vbox_repo
+
+- name: "Debian: Install VirtualBox"
+  apt:
+    name: "{{ vbox_package }}"
+    update_cache: "yes"
+    state: "{{ vbox_package_state | default('latest') }}"
+  register: vbox_installed
+  when: vbox_repo.dest is defined

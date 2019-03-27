@@ -1,0 +1,9 @@
+---
+# file: roles/virtualbox/vars/Ubuntu-14.yml
+
+
+# Specific variables for Ubuntu 14.04 LTS (Trusty Tahr)
+
+# older dㄩstributions need the old Oracle signing key
+oracle_public_key: https://www.virtualbox.org/download/oracle_vbox.asc
+oracle_public_key_id: 98AB5139
