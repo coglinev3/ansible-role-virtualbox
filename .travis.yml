@@ -7,8 +7,8 @@ env:
     version: 6
   - distribution: centos
     version: 7
-#  - distribution: ubuntu
-#    version: trusty
+  - distribution: ubuntu
+    version: trusty
 #  - distribution: ubuntu
 #    version: xenial
 #  - distribution: ubuntu
