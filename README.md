@@ -1,5 +1,6 @@
 # Ansible Role: virtualbox
 
+[![Build Status](https://travis-ci.org/coglinev3/virtualbox.svg?branch=master)](https://travis-ci.org/coglinev3/virtualbox)
 
 This Ansible role installs Oracle VirtualBox on these supported Linux distributions:
 
@@ -11,6 +12,8 @@ This Ansible role installs Oracle VirtualBox on these supported Linux distributi
 * Ubuntu 18.10 (Cosmic Cuttlefish),
 * Debian 8 (Jessie) and
 * Debian 9 (Stretch).
+
+This Role was tested with [Travis CI](https://travis-ci.org/coglinev3/virtualbox "Travis CI") using [Docker](https://www.docker.com/ "Docker") and  with a [multi virtual machine Vagrant environment](https://ansible-development.readthedocs.io "Environment for developing and testing Ansible roles").
 
 
 ## Requirements
