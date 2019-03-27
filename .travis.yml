@@ -19,8 +19,8 @@ env:
 #    version: disco
   - distribution: debian
     version: jessie
-#  - distribution: debian
-#    version: stretch
+  - distribution: debian
+    version: stretch
 
 services:
   - docker
