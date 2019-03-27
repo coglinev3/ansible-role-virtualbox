@@ -5,7 +5,7 @@
   apt:
     name: "{{ vbox_dependencies }}"
     state: present
-    update_cache: yes
+    update_cache: "yes"
 
 - name: "Debian: Add Oracle's signing key"
   apt_key:
@@ -25,7 +25,7 @@
 - name: "Debian: Install VirtualBox"
   apt:
     name: "{{ vbox_package }}"
-    update_cache: yes
+    update_cache: "yes"
     state: "{{ vbox_package_state | default('latest') }}"
   register: vbox_installed
   when: vbox_repo.dest is defined

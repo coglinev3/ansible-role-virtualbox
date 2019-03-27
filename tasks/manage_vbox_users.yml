@@ -5,7 +5,7 @@
   user:
     name: "{{ item }}"
     groups: vboxusers
-    append: yes
+    append: "yes"
   when: vbox_installed.skipped is not defined
   loop: "{{ vbox_users|flatten(levels=1) }}"
   loop_control:

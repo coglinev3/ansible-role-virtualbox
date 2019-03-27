@@ -32,40 +32,17 @@
 - debug:
     var: vbox_essential_packages
 
-#- name: Get kernel version
-#  command: "uname -r"
-#  register: uname_result
-#  changed_when: false
-#  check_mode: no
-#
-#- name: Set kernel version
-#  set_fact:
-#    kernel_version: "{{ uname_result.stdout }}"
-#  changed_when: false
-#
-## Ensure kernel-headers and kernel-devel have the same version like the kernel
-#- name: "RedHat: Install kernel-headers, kernel-devel and epel-release"
-#  yum:
-#    name: "{{ packages }}"
-#    update_cache: yes
-#    state: present
-#  vars:
-#    packages:
-#    - "kernel-devel-{{ kernel_version }}"
-#    - "kernel-headers-{{ kernel_version }}"
-#    - epel-release
-
 # Ensure kernel-headers and kernel-devel have the same version like the kernel
 - name: "RedHat: Install EPEL and kernel packages"
   yum:
     name: "{{ vbox_essential_packages }}"
-    update_cache: yes
+    update_cache: "yes"
     state: present
 
 - name: "RedHat: Install dependencies"
   yum:
     name: "{{ vbox_dependencies }}"
-    update_cache: yes
+    update_cache: "yes"
     enablerepo: epel
     state: present
 
@@ -87,7 +64,7 @@
   yum:
     name: "{{ vbox_package }}"
     enablerepo: virtualbox
-    update_cache: yes
+    update_cache: "yes"
     state: "{{ vbox_package_state | default('latest') }}"
   register: vbox_installed
   when: vbox_repo.dest is defined
