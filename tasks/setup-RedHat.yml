@@ -1,7 +1,6 @@
 ---
 # file: roles/virtualbox/tasks/setup-RedHat.yml
 
-
 - name: Setup a kernel_devel variable
   set_fact:
     kernel_devel: "kernel-devel-{{ ansible_kernel }}"
@@ -28,12 +27,9 @@
     vbox_essential_packages: "{{ vbox_essential_packages + [ kernel_headers ] }}"
   when: ansible_virtualization_type != "docker"
 
-
-- debug:
-    var: vbox_essential_packages
-
-# Ensure kernel-headers and kernel-devel have the same version like the kernel
-- name: "RedHat: Install EPEL and kernel packages"
+# Ensure kernel-headers and kernel-devel have the same version like the
+# current kernel
+- name: "RedHat: Install EPEL repository and kernel packages"
   yum:
     name: "{{ vbox_essential_packages }}"
     update_cache: "yes"
