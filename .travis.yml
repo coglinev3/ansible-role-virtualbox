@@ -13,8 +13,8 @@ env:
     version: xenial
   - distribution: ubuntu
     version: bionic
-#  - distribution: ubuntu
-#    version: cosmic
+  - distribution: ubuntu
+    version: cosmic
 #  - distribution: debian
 #    version: jessie
 #  - distribution: debian
