@@ -19,6 +19,7 @@ RUN apt-add-repository -y ppa:ansible/ansible \
   && apt-get install -y \
        git \
        ansible \
+       python-apt \
   && rm -rf /var/lib/apt/lists/* \
   && apt-get clean
 
