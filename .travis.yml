@@ -1,5 +1,6 @@
 ---
-sudo: required
+language: python
+services: docker
 
 # define distributions
 env:
@@ -21,9 +22,6 @@ env:
     version: jessie
   - distribution: debian
     version: stretch
-
-services:
-  - docker
 
 before_install:
   - >
