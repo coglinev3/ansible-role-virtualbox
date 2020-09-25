@@ -1,63 +1,67 @@
 ---
-language: python
-services: docker
+dist: focal
+addons:
+  apt:
+    packages:
+      - libssl-dev
+      - libffi-dev
+      - python3
+      - python3-pip
+      - python3-setuptools
+      - python3-software-properties
+      - python3-wheel
 
-# define distributions
+language: minimal
+
+services:
+  - docker
+
 env:
-  - distribution: centos
-    version: 6
-  - distribution: centos
-    version: 7
-  - distribution: ubuntu
-    version: trusty
-  - distribution: ubuntu
-    version: xenial
-  - distribution: ubuntu
-    version: bionic
-  - distribution: debian
-    version: jessie
-  - distribution: debian
-    version: stretch
+  global:
+    - ROLE_NAME: virtualbox
+    - MOLECULE_DISTRO: coglinev3/ansible
+    - PATH: /home/travis/.local/bin:${PATH}
+  matrix:
+    - MOLECULE_DISTRO_VERSION: centos-7
+    - MOLECULE_DISTRO_VERSION: centos-8
+    - MOLECULE_DISTRO_VERSION: debian-10
+      MOLECULE_DISTRO_CMD: /bin/systemd
+    - MOLECULE_DISTRO_VERSION: ubuntu-18.04
+      MOLECULE_DISTRO_CMD: /bin/systemd
+    - MOLECULE_DISTRO_VERSION: ubuntu-20.04
+      MOLECULE_DISTRO_CMD: /bin/systemd
 
-before_install:
-  - >
-    echo Get docker image ${distribution}:${version}.
-    && sudo docker pull ${distribution}:${version}
-  - >
-    echo Build docker image ${distribution}:${version} for use with Ansible.
-    && sudo docker build --no-cache --rm --file=travis/Dockerfile.${distribution}-${version} --tag=${distribution}-${version}:ansible travis
+install:
+  # Install test dependencies.
+  - pip3 install -U jinja2 requests ansible molecule yamllint ansible-lint docker
+
+before_script:
+  # Use actual Ansible Galaxy role name for the project directory.
+  - cd ../
+  - mv $(basename $TRAVIS_REPO_SLUG) $(dirname $TRAVIS_REPO_SLUG).${ROLE_NAME}
+  - cd $(dirname $TRAVIS_REPO_SLUG).${ROLE_NAME}
+  # Configure Ansible
+  - cp .travis/ansible.cfg ~/.ansible.cfg
+  - mkdir -p ~/.ansible && cp .travis/hosts ~/.ansible
+  # Show Ansible version
+  - ansible --version
+  # Create roles directory
+  - ln -s $(pwd)/.. ~/.ansible/roles
+  # Install VirtualBox on the host system
+  - ansible-playbook .travis/virtualbox.yml
+  # Load the VirtualBox driver on the host system
+  - sudo /sbin/vboxconfig
 
 
 script:
-  - container_id=$(mktemp)
-  - >
-    echo Create docker container from image ${distribution}-${version}:ansible.
-    && sudo docker run --detach --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --volume="${PWD}":/etc/ansible/roles/virtualbox:ro ${distribution}-${version}:ansible > "${container_id}"
-  - >
-    echo Get system facts for container ${distribution}-${version}:ansible.
-    && sudo docker exec "$(cat ${container_id})" env ANSIBLE_FORCE_COLOR=1 ansible all -m setup
-  - >
-    echo Testing the role’s syntax.
-    && sudo docker exec "$(cat ${container_id})" env ANSIBLE_FORCE_COLOR=1 ansible-playbook /etc/ansible/roles/virtualbox/travis/test.yml --syntax-check
-  - >
-    echo Perform a dry run.
-    && sudo docker exec "$(cat ${container_id})" env ANSIBLE_FORCE_COLOR=1 ansible-playbook /etc/ansible/roles/virtualbox/travis/test.yml --check
-  - >
-    echo Run the playbook.
-    && sudo docker exec "$(cat ${container_id})" env ANSIBLE_FORCE_COLOR=1 ansible-playbook /etc/ansible/roles/virtualbox/travis/test.yml
-  - >
-    echo Run the role/playbook again, checking to make sure it is idempotent.
-    && sudo docker exec "$(cat ${container_id})" env ANSIBLE_FORCE_COLOR=1 ansible-playbook /etc/ansible/roles/virtualbox/travis/test.yml
-    | grep -q 'changed=0.*failed=0'
-    && (echo 'Idempotence test: pass' && exit 0)
-    || (echo 'Idempotence test: fail' && exit 1)
-  - >
-    echo "Debug output: virtualbox"
-    && sudo docker exec "$(cat ${container_id})" virtualbox --help
-  - >
-    echo Stop and remove docker container
-    && sudo docker stop "$(cat ${container_id})"
-    && sudo docker rm -f "$(cat ${container_id})"
+  # Run tests.
+  - molecule lint
+  - molecule create
+  - molecule converge
+  # Load the VirtualBox driver on the host system again
+  - sudo /sbin/vboxconfig
+  - molecule verify
+  - molecule destroy
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
