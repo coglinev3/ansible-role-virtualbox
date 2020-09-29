@@ -17,3 +17,7 @@ vbox_package_state: latest
 
 # define VirtualBox users
 vbox_users: []
+
+# Set debian or ubuntu release (for example: stretch, buster, eaon, focal)
+# If the variable is not set, Ansible will automatically determine the release.
+debian_ubuntu_release: ""
