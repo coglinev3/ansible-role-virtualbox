@@ -10,6 +10,8 @@ oracle_public_key_state: present
 # define package dependencies
 vbox_dependencies:
   - apt-transport-https
+  - build-essential
+  - dkms
 
 # define VirtualBox Version
 vbox_package: virtualbox-6.0

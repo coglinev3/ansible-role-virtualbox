@@ -36,6 +36,7 @@ install:
   - pip3 install -U jinja2 requests ansible molecule yamllint ansible-lint docker
 
 before_script:
+  - lsmod
   # Use actual Ansible Galaxy role name for the project directory.
   - cd ../
   - mv $(basename $TRAVIS_REPO_SLUG) $(dirname $TRAVIS_REPO_SLUG).${ROLE_NAME}
