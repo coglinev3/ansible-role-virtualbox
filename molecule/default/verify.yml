@@ -11,6 +11,6 @@
     - name: Check VirtualBox version
       assert:
         that:
-          - "'6.' in vbox_version.stdout"
+          - "'6.1' in vbox_version.stdout"
         fail_msg: "VirtualBox not installed properly"
         success_msg: "VirtualBox {{ vbox_version.stdout }} installed correctly"
