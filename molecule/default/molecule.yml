@@ -9,7 +9,7 @@ platforms:
     pre_build_image: true
     volumes:
       - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
-      - '/dev/vboxdrv:/dev/vboxdrv'
+      - '/dev/vboxdrv:/dev/vboxdrv:ro'
     privileged: true
 provisioner:
   name: ansible
