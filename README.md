@@ -6,6 +6,7 @@ This Ansible role installs Oracle VirtualBox on these supported Linux distributi
 
 * Enterprise Linux 6, 
 * Enterprise Linux 7, 
+* Enterprise Linux 8, 
 * Fedora 31,
 * Fedora 32,
 * Ubuntu 14.04 LTS (Trusty Tahr),

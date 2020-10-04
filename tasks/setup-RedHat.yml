@@ -26,6 +26,12 @@
     update_cache: "yes"
   when: not ansible_distribution == "Fedora"
 
+- name: "RedHat 8: Install the Development tools package group"
+  yum:
+    name: '@Development tools'
+    state: present
+  when: not ansible_distribution == "Fedora" and ansible_facts['distribution_major_version'] is version('8', '>=')
+
 - name: "RedHat: Install dependencies"
   yum:
     name: "{{ vbox_dependencies }}"
