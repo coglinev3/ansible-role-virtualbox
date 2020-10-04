@@ -8,12 +8,13 @@
   - name: Append kernel headers for current kernel to dpendencies
     set_fact:
       vbox_dependencies: "{{ vbox_dependencies + [ linux_headers ] }}"
-  - name: "Debian: Install dependencies"
-    apt:
-      name: "{{ vbox_dependencies }}"
-      state: present
-      update_cache: "yes"
   when: ansible_virtualization_type != "docker"
+
+- name: "Debian: Install dependencies"
+  apt:
+    name: "{{ vbox_dependencies }}"
+    state: present
+    update_cache: "yes"
 
 - name: "Debian: Add Oracle's signing key"
   apt_key:

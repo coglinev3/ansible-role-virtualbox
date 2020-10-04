@@ -4,16 +4,19 @@
 
 This Ansible role installs Oracle VirtualBox on these supported Linux distributions:
 
+* Debian 8 (Jessie),
+* Debian 9 (Stretch),
+* Debian 10 (Buster),
 * Enterprise Linux 6, 
 * Enterprise Linux 7, 
 * Enterprise Linux 8, 
 * Fedora 31,
 * Fedora 32,
+* Linux Mint 20 Ulyana,
 * Ubuntu 14.04 LTS (Trusty Tahr),
 * Ubuntu 16.04 LTS (Xenial Xerus),
 * Ubuntu 18.04 LTS (Bionic Beaver),
-* Debian 8 (Jessie) and
-* Debian 9 (Stretch).
+* Ubuntu 20.04 LTS (Focal Fossa),
 
 This Role was tested with [Travis CI](https://travis-ci.org/coglinev3/virtualbox "Travis CI") using [Docker](https://www.docker.com/ "Docker") and  with a [multi virtual machine Vagrant environment](https://ansible-development.readthedocs.io "Environment for developing and testing Ansible roles").
 

@@ -11,6 +11,7 @@ platforms:
       - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
       - '/dev/vboxdrv:/dev/vboxdrv:ro'
     privileged: true
+    command: ${MOLECULE_DISTRO_CMD:-/usr/sbin/init}
 provisioner:
   name: ansible
 verifier:

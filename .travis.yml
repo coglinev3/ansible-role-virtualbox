@@ -23,12 +23,19 @@ env:
     - PATH: /home/travis/.local/bin:${PATH}
   matrix:
     - MOLECULE_DISTRO_VERSION: centos-6
+      MOLECULE_DISTRO_CMD: /sbin/init
     - MOLECULE_DISTRO_VERSION: centos-7
     - MOLECULE_DISTRO_VERSION: centos-8
     - MOLECULE_DISTRO_VERSION: fedora-31
     - MOLECULE_DISTRO_VERSION: fedora-32
+    - MOLECULE_DISTRO_VERSION: debian-8
+      MOLECULE_DISTRO_CMD: /sbin/init
+    - MOLECULE_DISTRO_VERSION: debian-9
+      MOLECULE_DISTRO_CMD: /bin/systemd
     - MOLECULE_DISTRO_VERSION: debian-10
       MOLECULE_DISTRO_CMD: /bin/systemd
+    - MOLECULE_DISTRO_VERSION: ubuntu-16.04
+      MOLECULE_DISTRO_CMD: /sbin/init
     - MOLECULE_DISTRO_VERSION: ubuntu-18.04
       MOLECULE_DISTRO_CMD: /bin/systemd
     - MOLECULE_DISTRO_VERSION: ubuntu-20.04
