@@ -1,0 +1,10 @@
+#
+# {{ ansible_managed }}
+#
+[virtualbox]
+name=Fedora {{ ansible_distribution_major_version}} - {{ ansible_userspace_architecture }} - VirtualBox
+baseurl=http://download.virtualbox.org/virtualbox/rpm/fedora/{{ ansible_distribution_major_version}}/{{ ansible_userspace_architecture }}
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey={{ oracle_public_key }}

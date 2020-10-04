@@ -1,6 +1,15 @@
 ---
 # file: roles/virtualbox/tasks/setup-Debian.yml
 
+- block:
+  - name: Define kernel headers for current kernel
+    set_fact:
+      linux_headers: "linux-headers-{{ ansible_kernel }}"
+  - name: Append kernel headers for current kernel to dpendencies
+    set_fact:
+      vbox_dependencies: "{{ vbox_dependencies + [ linux_headers ] }}"
+  when: ansible_virtualization_type != "docker"
+
 - name: "Debian: Install dependencies"
   apt:
     name: "{{ vbox_dependencies }}"
@@ -12,6 +21,21 @@
     url: "{{ oracle_public_key }}"
     id: "{{ oracle_public_key_id }}"
     state: "{{ oracle_public_key_state }}"
+
+- name: Set release for apt repository
+  set_fact:
+    debian_ubuntu_release: "{{ ansible_distribution_release }}"
+  when: ansible_distribution != "Linux Mint"
+
+- block:
+  - name: Get distribution release on Linux Mint
+    command: grep -oP 'UBUNTU_CODENAME=\K.*' /etc/os-release
+    register: distro
+    changed_when: False
+  - name: Set release for apt repository on Linux Mint
+    set_fact:
+      debian_ubuntu_release: "{{ distro.stdout }}"
+  when: not ansible_check_mode and ansible_distribution == "Linux Mint"
 
 - name: "Debian: Configure Oracle VirtualBox repository"
   template:

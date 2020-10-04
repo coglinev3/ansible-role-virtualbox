@@ -1,39 +1,36 @@
 ---
 # file: roles/virtualbox/tasks/setup-RedHat.yml
 
-- name: Setup a kernel_devel variable
-  set_fact:
-    kernel_devel: "kernel-devel-{{ ansible_kernel }}"
+#- block:
+#  - name: Setup a kernel_devel variable
+#    set_fact:
+#      kernel_devel: "kernel-devel-{{ ansible_kernel }}"
+#  
+#  - name: Setup a kernel_headers variable
+#    set_fact:
+#      kernel_headers: "kernel-headers-{{ ansible_kernel }}"
+#  
+#  - name: Append kernel-devel for current kernel to dependencies
+#    set_fact:
+#      vbox_dependencies: "{{ vbox_dependencies + [ kernel_devel ] }}"
+#  
+#  - name: Append kernel-headers for current kernel to dependencies
+#    set_fact:
+#      vbox_dependencies: "{{ vbox_dependencies + [ kernel_headers ] }}"
+#  when: ansible_virtualization_type != "docker"
 
-- name: Setup a kernel_headers variable
-  set_fact:
-    kernel_headers: "kernel-headers-{{ ansible_kernel }}"
-
-- name: Initialize an empty list essential_packages
-  set_fact:
-    vbox_essential_packages: []
-
-- name: Add EPEL Repository to  essential_packages
-  set_fact:
-    vbox_essential_packages: "{{ vbox_essential_packages + [ 'epel-release' ] }}"
-
-- name: Append kernel-devel for current kernel to essential_packages
-  set_fact:
-    vbox_essential_packages: "{{ vbox_essential_packages + [ kernel_devel ] }}"
-  when: ansible_virtualization_type != "docker"
-
-- name: Append kernel-headers for current kernel to essential_packages
-  set_fact:
-    vbox_essential_packages: "{{ vbox_essential_packages + [ kernel_headers ] }}"
-  when: ansible_virtualization_type != "docker"
-
-# Ensure kernel-headers and kernel-devel have the same version like the
-# current kernel
-- name: "RedHat: Install EPEL repository and kernel packages"
+- name: "RedHat: Install EPEL Repository"
   yum:
-    name: "{{ vbox_essential_packages }}"
-    update_cache: "yes"
+    name: epel-release
     state: present
+    update_cache: "yes"
+  when: not ansible_distribution == "Fedora"
+
+- name: "RedHat 8: Install the Development tools package group"
+  yum:
+    name: '@Development tools'
+    state: present
+  when: not ansible_distribution == "Fedora" and ansible_facts['distribution_major_version'] is version('8', '>=')
 
 - name: "RedHat: Install dependencies"
   yum:
@@ -54,7 +51,18 @@
     owner: root
     group: root
     mode: 0644
-  register: vbox_repo
+  register: vbox_el_repo
+  when: not ansible_distribution == "Fedora"
+
+- name: "Fedora: Configure Oracle VirtualBox repository"
+  template:
+    src: yum-repo-fedora.j2
+    dest: /etc/yum.repos.d/virtualbox.repo
+    owner: root
+    group: root
+    mode: 0644
+  register: vbox_fedora_repo
+  when: ansible_distribution == "Fedora"
 
 - name: "RedHat: Install VirtualBox"
   yum:
@@ -63,4 +71,4 @@
     update_cache: "yes"
     state: "{{ vbox_package_state | default('latest') }}"
   register: vbox_installed
-  when: vbox_repo.dest is defined
+  when: (vbox_el_repo.dest is defined) or (vbox_fedora_repo.dest is defined)

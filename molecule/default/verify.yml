@@ -1,0 +1,16 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  tasks:
+    - name: "Log in and execute VBoxManage --version"
+      remote_user: root
+      shell: VBoxManage --version
+      register: vbox_version
+    - name: Check VirtualBox version
+      assert:
+        that:
+          - "'6.1' in vbox_version.stdout"
+        fail_msg: "VirtualBox not installed properly"
+        success_msg: "VirtualBox {{ vbox_version.stdout }} installed correctly"
