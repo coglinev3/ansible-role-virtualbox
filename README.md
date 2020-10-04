@@ -31,7 +31,6 @@ None
 Available variables are listed below, along with default values:
 
 ```yml
-
 # variables for Oracle's signing key
 oracle_public_key: https://www.virtualbox.org/download/oracle_vbox_2016.asc
 oracle_public_key_id: 2980AECF
@@ -40,13 +39,20 @@ oracle_public_key_state: present
 # define package dependencies
 vbox_dependencies:
   - apt-transport-https
+  - build-essential
+  - dkms
 
 # define VirtualBox Version
-vbox_package: virtualbox-6.0
+vbox_version: 6.1
+vbox_package: "virtualbox-{{ vbox_version }}"
 vbox_package_state: latest
 
 # define VirtualBox users
 vbox_users: []
+
+# Set debian or ubuntu release name (for example: stretch, buster, eaon, focal)
+# If the variable is not set, Ansible will automatically determine the release.
+debian_ubuntu_release: ""
 ```
 
 
