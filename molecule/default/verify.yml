@@ -4,9 +4,13 @@
 - name: Verify
   hosts: all
   tasks:
-    - name: "Log in and execute VBoxManage --version"
-      remote_user: root
+    - name: "Log in as user ansible and execute VBoxManage --version"
+      become: true
+      become_user: ansible
       shell: VBoxManage --version
+      changed_when: false
+      args:
+        warn: false # set warn=false to prevent warning
       register: vbox_version
     - name: Check VirtualBox version
       assert:
