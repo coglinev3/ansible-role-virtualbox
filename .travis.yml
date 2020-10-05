@@ -46,7 +46,6 @@ install:
   - pip3 install -U jinja2 requests ansible molecule yamllint ansible-lint docker
 
 before_script:
-  - lsmod
   # Use actual Ansible Galaxy role name for the project directory.
   - cd ../
   - mv $(basename $TRAVIS_REPO_SLUG) $(dirname $TRAVIS_REPO_SLUG).${ROLE_NAME}
@@ -57,7 +56,9 @@ before_script:
   # Show Ansible version
   - ansible --version
   # Create roles directory
-  - ln -s $(pwd)/.. ~/.ansible/roles
+  - mkdir -p ~/.ansible/roles
+  # Install latest stable version of this role via Ansible Galaxy
+  - ansible-galaxy install -r requirements.yml -p ~/.ansible/roles
   # Install VirtualBox on the host system
   - ansible-playbook .travis/virtualbox.yml
   # Load the VirtualBox driver on the host system
