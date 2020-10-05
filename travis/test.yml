@@ -1,7 +1,0 @@
----
-# travis/test.yml
-
-- hosts: all
-  become: true
-  roles:
-    - { role: virtualbox }
