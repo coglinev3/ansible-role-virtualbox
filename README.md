@@ -1,6 +1,6 @@
 # Ansible Role: virtualbox
 
-[![Build Status](https://travis-ci.org/coglinev3/virtualbox.svg?branch=master)](https://travis-ci.org/coglinev3/virtualbox) ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/coglinev3/virtualbox) [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://raw.githubusercontent.com/coglinev3/virtualbox/master/LICENSE)
+[![Build Status](https://travis-ci.com/coglinev3/virtualbox.svg?branch=master)](https://travis-ci.com/coglinev3/virtualbox) ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/coglinev3/virtualbox) [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://raw.githubusercontent.com/coglinev3/virtualbox/master/LICENSE)
 
 This Ansible role installs Oracle VirtualBox on these supported Linux distributions:
 
