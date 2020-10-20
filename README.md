@@ -79,7 +79,7 @@ None
 
 ## Version
 
-Release: 1.1.1
+Release: 1.1.2
 
 
 ## License
@@ -89,4 +89,4 @@ BSD
 
 ## Author Information
 
-This Ansible Role was created in 2019, by Cogline.v3.
+Copyright &copy; 2020 Cogline.v3.
