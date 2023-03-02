@@ -1,5 +1,5 @@
 ---
-# file: roles/virtualbox/vars/RedHat.yml
+# file: roles/virtualbox/vars/RedHat-9.yml
 
 # Specific variables for RHEL/CentOS/Fedora systems
 oracle_public_key: https://www.virtualbox.org/download/oracle_vbox.asc
@@ -7,6 +7,7 @@ oracle_public_key_id: 98AB5139
 
 vbox_dependencies:
   - kernel-devel
+  - kmod
 #  - kernel-headers
 #  - dkms
 #  - elfutils-libelf-devel

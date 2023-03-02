@@ -4,17 +4,43 @@
 - name: Verify
   hosts: all
   tasks:
-    - name: "Log in as user ansible and execute VBoxManage --version"
+    - name: "RedHat: Get installed VirtualBox package version"
       become: true
       become_user: ansible
-      shell: VBoxManage --version
-      changed_when: false
+      ansible.builtin.shell: |
+        set -o pipefail 
+        dnf list installed|grep VirtualBox|sed -e 's/\s\+/:/g'|cut -d ':' -f 2|cut -d '_' -f1
       args:
-        warn: false # set warn=false to prevent warning
+        executable: /bin/bash
+      register: vbox_package_version
+      changed_when: vbox_package_version.rc == 0
+      failed_when: vbox_package_version.rc != 0
+      when: ansible_os_family == 'RedHat'
+
+    - name: "Debian: Get installed VirtualBox package version"
+      become: true
+      become_user: ansible
+      ansible.builtin.shell: |
+        set -o pipefail 
+        apt list --installed 2>/dev/null|grep virtualbox|sed -e 's/\s\+/:/g'|cut -d ':' -f 2|cut -d '-' -f1
+      args:
+        executable: /bin/bash
+      register: vbox_package_version
+      changed_when: vbox_package_version.rc == 0
+      failed_when: vbox_package_version.rc != 0
+      when: ansible_os_family == 'Debian'
+
+    - name: "Execute VBoxManage --version"
+      become: true
+      become_user: ansible
+      ansible.builtin.command: VBoxManage --version
       register: vbox_version
+      changed_when: vbox_version.rc == 0
+      failed_when: false
+
     - name: Check VirtualBox version
-      assert:
+      ansible.builtin.assert:
         that:
-          - "'6.1' in vbox_version.stdout"
+          - "vbox_package_version.stdout in vbox_version.stdout"
         fail_msg: "VirtualBox not installed properly"
         success_msg: "VirtualBox {{ vbox_version.stdout }} installed correctly"

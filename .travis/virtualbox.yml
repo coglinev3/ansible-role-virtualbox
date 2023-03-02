@@ -1,5 +1,6 @@
 ---
-- hosts: local
+- name: Execute role coglinev3.virtualbox
+  hosts: local
   become: yes
   roles:
     - { role: coglinev3.virtualbox }

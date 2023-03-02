@@ -1,74 +1,34 @@
 ---
 # file: roles/virtualbox/tasks/setup-RedHat.yml
 
-#- block:
-#  - name: Setup a kernel_devel variable
-#    set_fact:
-#      kernel_devel: "kernel-devel-{{ ansible_kernel }}"
-#  
-#  - name: Setup a kernel_headers variable
-#    set_fact:
-#      kernel_headers: "kernel-headers-{{ ansible_kernel }}"
-#  
-#  - name: Append kernel-devel for current kernel to dependencies
-#    set_fact:
-#      vbox_dependencies: "{{ vbox_dependencies + [ kernel_devel ] }}"
-#  
-#  - name: Append kernel-headers for current kernel to dependencies
-#    set_fact:
-#      vbox_dependencies: "{{ vbox_dependencies + [ kernel_headers ] }}"
-#  when: ansible_virtualization_type != "docker"
-
-- name: "RedHat: Install EPEL Repository"
-  yum:
-    name: epel-release
-    state: present
-    update_cache: "yes"
-  when: not ansible_distribution == "Fedora"
-
-- name: "RedHat 8: Install the Development tools package group"
-  yum:
-    name: '@Development tools'
-    state: present
-  when: not ansible_distribution == "Fedora" and ansible_facts['distribution_major_version'] is version('8', '>=')
-
 - name: "RedHat: Install dependencies"
-  yum:
+  ansible.builtin.yum:
     name: "{{ vbox_dependencies }}"
     update_cache: "yes"
-    enablerepo: epel
     state: present
 
-- name: "RedHat: Add Oracle's signing key"
-  rpm_key:
-    key: "{{ oracle_public_key }}"
-    state: "{{ oracle_public_key_state }}"
-
 - name: "RedHat: Configure Oracle VirtualBox repository"
-  template:
+  ansible.builtin.template:
     src: yum-repo.j2
     dest: /etc/yum.repos.d/virtualbox.repo
     owner: root
     group: root
     mode: 0644
-  register: vbox_el_repo
   when: not ansible_distribution == "Fedora"
 
 - name: "Fedora: Configure Oracle VirtualBox repository"
-  template:
+  ansible.builtin.template:
     src: yum-repo-fedora.j2
     dest: /etc/yum.repos.d/virtualbox.repo
     owner: root
     group: root
     mode: 0644
-  register: vbox_fedora_repo
   when: ansible_distribution == "Fedora"
 
 - name: "RedHat: Install VirtualBox"
-  yum:
+  ansible.builtin.yum:
     name: "{{ vbox_package }}"
     enablerepo: virtualbox
     update_cache: "yes"
     state: "{{ vbox_package_state | default('latest') }}"
   register: vbox_installed
-  when: (vbox_el_repo.dest is defined) or (vbox_fedora_repo.dest is defined)
