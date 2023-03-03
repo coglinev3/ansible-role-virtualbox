@@ -6,11 +6,7 @@ oracle_public_key: https://www.virtualbox.org/download/oracle_vbox.asc
 oracle_public_key_id: 98AB5139
 
 vbox_dependencies:
-  - '@development-tools'
-  - kernel-headers
   - kernel-devel
-  - dkms
-  - elfutils-libelf-devel
-  - qt5-qtx11extras
+  - kmod
 
 vbox_package: "VirtualBox-{{ vbox_version }}"

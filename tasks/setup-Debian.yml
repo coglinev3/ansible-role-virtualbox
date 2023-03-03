@@ -30,6 +30,7 @@
   when: ansible_distribution != "Linux Mint"
 
 - name: Get Ubuntu release an Linux Mint
+  when: not ansible_check_mode and ansible_distribution == "Linux Mint"
   block:
   - name: Get distribution release on Linux Mint
     ansible.builtin.command: grep -oP 'UBUNTU_CODENAME=\K.*' /etc/os-release
@@ -39,7 +40,6 @@
   - name: Set release for apt repository on Linux Mint
     ansible.builtin.set_fact:
       debian_ubuntu_release: "{{ distro.stdout }}"
-  when: not ansible_check_mode and ansible_distribution == "Linux Mint"
 
 - name: "Debian: Configure Oracle VirtualBox repository"
   ansible.builtin.template:

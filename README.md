@@ -4,12 +4,11 @@
 
 This Ansible role installs Oracle VirtualBox on these supported Linux distributions:
 
-* Debian 8 (Jessie),
 * Debian 9 (Stretch),
 * Debian 10 (Buster),
-* Enterprise Linux 6, 
-* Enterprise Linux 7, 
+* Debian 11 (Bullseye),
 * Enterprise Linux 8, 
+* Enterprise Linux 9, 
 * Fedora 31,
 * Fedora 32,
 * Linux Mint 20 Ulyana,
@@ -43,7 +42,7 @@ vbox_dependencies:
   - dkms
 
 # define VirtualBox Version
-vbox_version: 6.1
+vbox_version: 7.0
 vbox_package: "virtualbox-{{ vbox_version }}"
 vbox_package_state: latest
 

@@ -14,7 +14,7 @@ vbox_dependencies:
   - dkms
 
 # define VirtualBox Version
-vbox_version: 6.1
+vbox_version: 7.0
 vbox_package: "virtualbox-{{ vbox_version }}"
 vbox_package_state: latest
 

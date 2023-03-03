@@ -1,6 +1,8 @@
 ---
+# file: tests/virtualbox.yml
+
 - name: Execute role coglinev3.virtualbox
-  hosts: local
-  become: yes
+  hosts: localhost
+  become: true
   roles:
     - { role: coglinev3.virtualbox }
