@@ -7,6 +7,11 @@
     update_cache: "yes"
     state: present
 
+- name: "RedHat: Add Oracle's signing key"
+  ansible.builtin.rpm_key:
+    key: "{{ oracle_public_key }}"
+    state: "{{ oracle_public_key_state }}"
+
 - name: "RedHat: Configure Oracle VirtualBox repository"
   ansible.builtin.template:
     src: yum-repo.j2

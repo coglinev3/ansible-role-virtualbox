@@ -12,7 +12,7 @@
           become_user: ansible
           ansible.builtin.shell: |
             set -o pipefail 
-            dnf list installed|grep VirtualBox|sed -e 's/\s\+/:/g'|cut -d ':' -f 2|cut -d '_' -f1
+            yum list installed 2>/dev/null | grep VirtualBox | sed -e 's/\s\+/:/g' | cut -d ':' -f 2 | cut -d '_' -f1
           args:
             executable: /bin/bash
           register: vbox_package_version
