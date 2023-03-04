@@ -27,8 +27,9 @@ galaxy_info:
         - bullseye
     - name: Fedora
       versions:
-        - "31"
-        - "32"
+        - "35"
+        - "36"
+        - "37"
   galaxy_tags:
     - virtualbox
     - virtualization
