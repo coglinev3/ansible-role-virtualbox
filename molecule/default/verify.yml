@@ -19,10 +19,6 @@
           changed_when: vbox_package_version.rc != 0
           failed_when: vbox_package_version.rc != 0
     
-        - name: Show vbox_package_version
-          ansible.builtin.debug:
-            var: vbox_package_version
-
         - name: "RedHat: Execute VBoxManage --version"
           become: true
           become_user: ansible
@@ -30,10 +26,6 @@
           register: vbox_version
           changed_when: vbox_version.rc == 0
           failed_when: false
-    
-        - name: Show vbox_package_version
-          ansible.builtin.debug:
-            var: vbox_version
     
         - name: "RedHat: Check VirtualBox version"
           ansible.builtin.assert:
@@ -57,10 +49,6 @@
           changed_when: vbox_package_version.rc != 0
           failed_when: vbox_package_version.rc != 0
     
-        - name: Show vbox_package_version
-          ansible.builtin.debug:
-            var: vbox_package_version
-    
         - name: "Execute VBoxManage --version"
           become: true
           become_user: ansible
@@ -68,10 +56,6 @@
           register: vbox_version
           changed_when: vbox_version.rc == 0
           failed_when: false
-    
-        - name: Show vbox_package_version
-          ansible.builtin.debug:
-            var: vbox_version
     
         - name: Check VirtualBox version
           ansible.builtin.assert:

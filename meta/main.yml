@@ -16,10 +16,9 @@ galaxy_info:
         - "8"
     - name: Ubuntu
       versions:
-        - trusty
-        - xenial
         - bionic
         - focal
+        - jammy
     - name: Debian
       versions:
         - stretch
@@ -29,7 +28,6 @@ galaxy_info:
       versions:
         - "35"
         - "36"
-        - "37"
   galaxy_tags:
     - virtualbox
     - virtualization

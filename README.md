@@ -1,22 +1,21 @@
 # Ansible Role: virtualbox
 
-[![Build Status](https://travis-ci.com/coglinev3/virtualbox.svg?branch=master)](https://travis-ci.com/coglinev3/virtualbox) ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/coglinev3/virtualbox) [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://raw.githubusercontent.com/coglinev3/virtualbox/master/LICENSE)
+[![Build](https://github.com/coglinev3/ansible-role-virtualbox/actions/workflows/build.yml/badge.svg)](https://github.com/coglinev3/ansible-role-virtualbox/actions/workflows/build.yml) ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/coglinev3/virtualbox) [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://raw.githubusercontent.com/coglinev3/virtualbox/master/LICENSE)
 
 This Ansible role installs Oracle VirtualBox on these supported Linux distributions:
 
 * Debian 9 (Stretch),
 * Debian 10 (Buster),
 * Debian 11 (Bullseye),
+* Enterprise Linux 7, 
 * Enterprise Linux 8, 
 * Enterprise Linux 9, 
 * Fedora 35,
 * Fedora 36,
-* Fedora 37,
 * Linux Mint 20 Ulyana,
-* Ubuntu 14.04 LTS (Trusty Tahr),
-* Ubuntu 16.04 LTS (Xenial Xerus),
 * Ubuntu 18.04 LTS (Bionic Beaver),
 * Ubuntu 20.04 LTS (Focal Fossa),
+* Ubuntu 22.04 LTS (Jammy Jellyfish),
 
 This Role was tested with [Travis CI](https://travis-ci.org/coglinev3/virtualbox "Travis CI") using [Docker](https://www.docker.com/ "Docker") and  with a [multi virtual machine Vagrant environment](https://ansible-development.readthedocs.io "Environment for developing and testing Ansible roles").
 
