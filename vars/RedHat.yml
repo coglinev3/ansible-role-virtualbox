@@ -8,5 +8,3 @@ oracle_public_key_id: 98AB5139
 vbox_dependencies:
   - kernel-devel
   - kmod
-
-vbox_package: "VirtualBox-{{ vbox_version }}"

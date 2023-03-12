@@ -29,7 +29,7 @@
     debian_ubuntu_release: "{{ ansible_distribution_release }}"
   when: ansible_distribution != "Linux Mint"
 
-- name: Get Ubuntu release an Linux Mint
+- name: Get Ubuntu release on Linux Mint
   when: not ansible_check_mode and ansible_distribution == "Linux Mint"
   block:
   - name: Get distribution release on Linux Mint
@@ -49,6 +49,11 @@
     group: root
     mode: 0644
   register: vbox_repo
+
+- name: "Debian: Set VirtualBox package name."
+  ansible.builtin.set_fact:
+    vbox_package: "virtualbox-{{ vbox_version }}"
+  when: vbox_package is not defined or vbox_package | trim == ''
 
 - name: "Debian: Install VirtualBox"
   ansible.builtin.apt:

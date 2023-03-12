@@ -41,9 +41,9 @@ vbox_dependencies:
   - build-essential
   - dkms
 
-# define VirtualBox Version
-vbox_version: 7.0
-vbox_package: "virtualbox-{{ vbox_version }}"
+# define VirtualBox Version, package name, package state
+vbox_version: "7.0"
+vbox_package: "virtualbox-{{ vbox_version }}" on Debian or "VirtualBox-{{ vbox_version }}" on RedHat
 vbox_package_state: latest
 
 # define VirtualBox users

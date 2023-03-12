@@ -1,6 +1,5 @@
 ---
 # file: roles/virtualbox/vars/Debian-9.yml
 
-vbox_version: 6.1
-vbox_package: "virtualbox-{{ vbox_version }}"
-vbox_package_state: latest
+# VirtualBox 7.0 is not available for Debian 9
+vbox_version: "6.1"

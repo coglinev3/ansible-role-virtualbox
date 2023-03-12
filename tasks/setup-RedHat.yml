@@ -30,6 +30,11 @@
     mode: 0644
   when: ansible_distribution == "Fedora"
 
+- name: "RedHat: Set VirtualBox package name."
+  ansible.builtin.set_fact:
+    vbox_package: "VirtualBox-{{ vbox_version }}"
+  when: vbox_package is not defined or vbox_package | trim == ''
+
 - name: "RedHat: Install VirtualBox"
   ansible.builtin.yum:
     name: "{{ vbox_package }}"
