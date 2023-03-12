@@ -63,3 +63,7 @@
               - "vbox_package_version.stdout in vbox_version.stdout"
             fail_msg: "VirtualBox not installed properly"
             success_msg: "VirtualBox {{ vbox_version.stdout }} installed correctly"
+
+    - name: Show OS
+      ansible.builtin.debug:
+        msg: "{{ ansible_distribution }} - {{ ansible_distribution_version }}"
