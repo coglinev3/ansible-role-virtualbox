@@ -17,7 +17,7 @@ This Ansible role installs Oracle VirtualBox on these supported Linux distributi
 * Ubuntu 20.04 LTS (Focal Fossa),
 * Ubuntu 22.04 LTS (Jammy Jellyfish),
 
-This Role was tested with [Travis CI](https://travis-ci.org/coglinev3/virtualbox "Travis CI") using [Docker](https://www.docker.com/ "Docker") and  with a [multi virtual machine Vagrant environment](https://ansible-development.readthedocs.io "Environment for developing and testing Ansible roles").
+This Role was tested with [GitHub Actions](https://github.com/features/actions "GitHub Actions") using [Ansible Molecule](https://molecule.readthedocs.io/en/latest/# "Ansible Molecule Documentation") and with a [multi virtual machine vagrant environment](https://ansible-development.readthedocs.io "Environment for developing and testing Ansible roles").
 
 
 ## Requirements
@@ -78,7 +78,7 @@ None
 
 ## Version
 
-Release: 1.1.2
+Release: 1.2.0
 
 
 ## License
@@ -88,4 +88,4 @@ BSD
 
 ## Author Information
 
-Copyright &copy; 2020 Cogline.v3.
+Copyright &copy; 2023 Cogline.v3.
