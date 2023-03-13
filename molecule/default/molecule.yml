@@ -6,12 +6,17 @@ driver:
 platforms:
   - name: instance
     image: docker.io/${MOLECULE_DISTRO:-coglinev3/ansible}:${MOLECULE_DISTRO_VERSION:-centos-8}
+    command: ${MOLECULE_DISTRO_CMD:-""}
     pre_build_image: true
     volumes:
-      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
-      - '/dev/vboxdrv:/dev/vboxdrv:ro'
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+      - /dev/vboxdrv:/dev/vboxdrv:ro
+    tmpfs:
+      - /tmp
+      - /run
+      - /run/lock
+    cgroupns_mode: host
     privileged: true
-    command: ${MOLECULE_DISTRO_CMD:-/usr/sbin/init}
 provisioner:
   name: ansible
 verifier:
@@ -19,7 +24,7 @@ verifier:
 lint: |
   set -e
   yamllint .
-  ansible-lint tests/test.yml
+  ansible-lint
   flake8
 scenario:
   name: default

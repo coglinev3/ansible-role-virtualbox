@@ -3,31 +3,31 @@
 
 galaxy_info:
   author: Cogline.v3
+  role_name: virtualbox
+  namespace: coglinev3
   description: Install Oracle VirtualBox on every supported Linux distribution.
   license: BSD
-  min_ansible_version: 2.7
+  min_ansible_version: "2.14"
   # github_branch:
   platforms:
     - name: EL
       versions:
-        - 8
-        - 7
-        - 6
+        - "9"
+        - "8"
     - name: Ubuntu
       versions:
-        - trusty
-        - xenial
         - bionic
         - focal
+        - jammy
     - name: Debian
       versions:
-        - jessie
         - stretch
         - buster
+        - bullseye
     - name: Fedora
       versions:
-        - 31
-        - 32
+        - "35"
+        - "36"
   galaxy_tags:
     - virtualbox
     - virtualization

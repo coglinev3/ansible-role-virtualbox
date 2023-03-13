@@ -2,9 +2,9 @@
 # {{ ansible_managed }}
 #
 [virtualbox]
-name=Oracle Linux / RHEL / CentOS-{{ ansible_distribution_major_version}} / {{ ansible_userspace_architecture }} - VirtualBox
-baseurl=http://download.virtualbox.org/virtualbox/rpm/el/{{ ansible_distribution_major_version}}/{{ ansible_userspace_architecture }}
+name=Oracle Linux / RHEL / CentOS-$releasever / $basearch - VirtualBox
+baseurl=http://download.virtualbox.org/virtualbox/rpm/el/$releasever/$basearch
 enabled=1
 gpgcheck=1
 repo_gpgcheck=1
-gpgkey={{ oracle_public_key }}
+gpgkey=https://www.virtualbox.org/download/oracle_vbox.asc

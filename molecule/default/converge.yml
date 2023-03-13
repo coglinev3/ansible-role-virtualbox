@@ -6,5 +6,5 @@
       - ansible
   tasks:
     - name: "Include coglinev3.virtualbox"
-      include_role:
+      ansible.builtin.include_role:
         name: "coglinev3.virtualbox"

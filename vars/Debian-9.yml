@@ -1,0 +1,5 @@
+---
+# file: roles/virtualbox/vars/Debian-9.yml
+
+# VirtualBox 7.0 is not available for Debian 9
+vbox_version: "6.1"
