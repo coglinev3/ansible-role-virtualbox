@@ -33,7 +33,7 @@
 - name: "RedHat: Set VirtualBox package name."
   ansible.builtin.set_fact:
     vbox_package: "VirtualBox-{{ vbox_version }}"
-  when: vbox_package is not defined or vbox_package | trim == ''
+  when: vbox_package is not defined or vbox_package | length
 
 - name: "RedHat: Install VirtualBox"
   ansible.builtin.yum:

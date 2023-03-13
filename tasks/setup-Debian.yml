@@ -53,7 +53,7 @@
 - name: "Debian: Set VirtualBox package name."
   ansible.builtin.set_fact:
     vbox_package: "virtualbox-{{ vbox_version }}"
-  when: vbox_package is not defined or vbox_package | trim == ''
+  when: vbox_package is not defined or vbox_package | length
 
 - name: "Debian: Install VirtualBox"
   ansible.builtin.apt:
