@@ -78,7 +78,7 @@ None
 
 ## Version
 
-Release: 1.2.0
+Release: 1.2.1
 
 
 ## License
